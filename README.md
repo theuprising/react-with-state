@@ -1,16 +1,30 @@
 # react-with-state
 
-[![Travis][build-badge]][build]
-[![npm package][npm-badge]][npm]
-[![Coveralls][coveralls-badge]][coveralls]
+Higher-order component abstraction for adding state management to a dumb component.
 
-Describe react-with-state here.
+provides these props:
+- state
+- setState
 
-[build-badge]: https://img.shields.io/travis/user/repo/master.png?style=flat-square
-[build]: https://travis-ci.org/user/repo
+[try it on codepen](http://codepen.io/amonks/pen/LxrXmG?editors=0010)
 
-[npm-badge]: https://img.shields.io/npm/v/npm-package.png?style=flat-square
-[npm]: https://www.npmjs.org/package/npm-package
+```javascript
+import React from 'react'
+import {render} from 'react-dom'
 
-[coveralls-badge]: https://img.shields.io/coveralls/user/repo/master.png?style=flat-square
-[coveralls]: https://coveralls.io/github/user/repo
+import withState from '../../src'
+
+const Counter = ({state, setState}) =>
+  <div>
+    {state.count}
+    <button onClick={() => setState({count: state.count + 1})}>
+      Increment
+    </button>
+  </div>
+
+const manageCounterState = withState({count: 0})
+const ManagedCounter = manageCounterState(Counter)
+
+render(<ManagedCounter />, document.querySelector('#demo'))
+```
+
